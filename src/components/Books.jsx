@@ -1,16 +1,24 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
-function Books({ listOfBooks, modalControl, handleCart }) {
-  if (listOfBooks) {
+function Books({ listOfBooks, modalControl, handleCart, category }) {
+  // If we have some books, we will do filtering of books and rendering
+  if (listOfBooks.length !== 0) {
+    let booksFiltered;
+    if (category !== "all") {
+      booksFiltered = listOfBooks.filter((book) => book.genre === category);
+    } else {
+      booksFiltered = listOfBooks;
+    }
     return (
       <>
         <div className="row py-3 px-4">
           <h5 className="text-dark">List of Books</h5>
           <hr />
           <div className="row gx-4 gy-4 m-0 p-0">
-            {listOfBooks.map((book) => (
+            {booksFiltered.map((book) => (
               <div className="col-md-6" id={book._id} key={book._id}>
                 <Card className="p-3 shadow">
                   <Card.Img
@@ -54,7 +62,14 @@ function Books({ listOfBooks, modalControl, handleCart }) {
       </>
     );
   }
-  return <>No items yet</>;
+  // If we haven't books yet from firestore, we will render a spinner to indicate the load of data to the screen
+  return (
+    <div className="d-flex justify-content-center mt-5">
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    </div>
+  );
 }
 
 export default Books;

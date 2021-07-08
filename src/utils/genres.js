@@ -1,3 +1,5 @@
+// Array of genres to do a map operation inside books component
+
 const genres = [
   {
     id: "action",

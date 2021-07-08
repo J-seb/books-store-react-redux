@@ -1,63 +1,65 @@
+// Components
 import NavTop from "./components/Nav";
 import SideBar from "./components/Tab";
 import Books from "./components/Books";
 import Cart from "./components/Cart";
 import ModalDetails from "./components/Modal";
 
+// Sweet-Alert to success purchase
 import Swal from "sweetalert2";
 
-import { useState, useEffect } from "react";
+// Hooks from to manage react and redux
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import initialBooks from "./books";
-
+// CSS styles and icons
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
 import "./App.css";
 
+// Action creators to dispatch
+import {
+  getDataFromFirestore,
+  updateAmountOfBooks,
+  updateStockOfBooks,
+} from "./actions/booksActions";
+
+import { updateCategory } from "./actions/categoryActions";
+import { modalToggle } from "./actions/modalActions";
+import { setBookDetails } from "./actions/bookDetailsActions";
+import { clearBooksFromCart, updateBooksFromCart } from "./actions/cartActions";
+import { updateDoc } from "./utils/firebaseFirestoreMethods";
+
 function App() {
-  // Use State
-  const [books, setBooks] = useState([]);
-  const [category, setCategory] = useState({});
-  const [showModal, setShowModal] = useState(false);
-  const [actualBook, setActualBook] = useState({});
+  // Initialize dispatch, to save data inside store
+  const dispatch = useDispatch();
 
-  const [cartArray, setCartArray] = useState([]);
+  // Use selector to get data from store
+  const books = useSelector((state) => state.books);
+  const category = useSelector((state) => state.category);
+  const showModal = useSelector((state) => state.modal);
+  const actualBook = useSelector((state) => state.bookDetails);
+  const cartArray = useSelector((state) => state.cart);
 
-  // Use Effect
+  // Fetching books from Firestore and save it to the store
   useEffect(() => {
-    const arrayWithAmountSelected = initialBooks.map((book) => ({
-      ...book,
-      amountSelected: 0,
-    }));
-    setBooks([...arrayWithAmountSelected]);
-    setCategory({ name: "all", books: [...arrayWithAmountSelected] });
-  }, []);
+    dispatch(getDataFromFirestore());
+  }, [dispatch]);
 
-  //Complementary Functions
+  // To change the category filter
   const handleCategory = (e) => {
-    if (e.target.name === "all") {
-      setCategory({
-        name: e.target.name,
-        books,
-      });
-    } else {
-      const booksFiltered = books.filter(
-        (book) => book.genre === e.target.name
-      );
-      setCategory({
-        name: e.target.name,
-        books: booksFiltered,
-      });
-    }
+    dispatch(updateCategory(e.target.name));
   };
 
+  // To manage modal state and put book details inside of it
   const handleShowModal = (book) => {
+    dispatch(modalToggle());
     if (book) {
-      setActualBook({ ...book });
+      dispatch(setBookDetails(book));
     }
-    setShowModal(!showModal);
   };
 
+  // To manage books amount inside cart shopping
   const onHandleCart = (book, e) => {
     let newItem;
     const action = e.target.name;
@@ -72,63 +74,31 @@ function App() {
         units: 1,
       };
 
-      const copyOfStateBooks = [...books];
-      const indexOfSelectedBook = copyOfStateBooks.findIndex(
-        (element) => element._id === book._id
-      );
+      dispatch(updateAmountOfBooks(action, _id));
 
-      copyOfStateBooks[indexOfSelectedBook].amountSelected =
-        action === "+"
-          ? copyOfStateBooks[indexOfSelectedBook].amountSelected + 1
-          : copyOfStateBooks[indexOfSelectedBook].amountSelected - 1;
-
-      setCartArray([...copyOfStateBooks]);
-
-      if (cartArray.length !== 0) {
-        const copyOfStateCart = [...cartArray];
-        const indexOfRepeatedBook = copyOfStateCart.findIndex(
-          (element) => element._id === book._id
-        );
-
-        if (indexOfRepeatedBook !== -1) {
-          copyOfStateCart[indexOfRepeatedBook].units =
-            action === "+"
-              ? copyOfStateCart[indexOfRepeatedBook].units + 1
-              : copyOfStateCart[indexOfRepeatedBook].units - 1;
-
-          const zeroFilteredArray = filterCart(copyOfStateCart);
-          setCartArray([...zeroFilteredArray]);
-        } else {
-          const zeroFilteredArray = filterCart(copyOfStateCart);
-          setCartArray([...zeroFilteredArray, newItem]);
-        }
-      } else {
-        setCartArray([...cartArray, newItem]);
-      }
+      dispatch(updateBooksFromCart(action, _id, newItem));
     }
   };
 
-  const filterCart = (array) => {
-    return array.filter((item) => item.units !== 0);
-  };
-
+  // To update store and firestore once a customer has purchase at least one book
   const onHandleBuy = () => {
-    const newArrayOfBooks = books.map((book) => ({
-      ...book,
-      stock: book.stock - book.amountSelected,
-      amountSelected: 0,
-    }));
+    books.forEach((book) => {
+      if (book.amountSelected !== 0) {
+        updateDoc("books", book._id, {
+          stock: book.stock - book.amountSelected,
+        });
+      }
+    });
 
-    setBooks([...newArrayOfBooks]);
-    setCategory({ name: "all", books: [...newArrayOfBooks] });
+    dispatch(updateStockOfBooks());
+
+    dispatch(clearBooksFromCart());
 
     Swal.fire({
       title: "Thanks for your purchase",
       text: "Operation was successful!",
       icon: "success",
     });
-
-    setCartArray([]);
   };
 
   return (
@@ -142,7 +112,8 @@ function App() {
         </div>
         <div className="col-md-6 border-end border-start">
           <Books
-            listOfBooks={category.books}
+            listOfBooks={books}
+            category={category}
             modalControl={handleShowModal}
             handleCart={onHandleCart}
           />

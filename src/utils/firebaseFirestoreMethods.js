@@ -1,5 +1,8 @@
 import firebase from "./firebaseConnection";
 
+// Firebase methods
+
+// To create a doc
 const createDoc = (collection, obj) => {
   const result = firebase
     .firestore()
@@ -9,11 +12,13 @@ const createDoc = (collection, obj) => {
   return result;
 };
 
+// To read all docs
 const readAllDocs = (collection) => {
-  const result = firebase.firestore().collection(collection).doc().get();
+  const result = firebase.firestore().collection(collection).get();
   return result;
 };
 
+// To read a specific doc
 const readDoc = (collection, id) => {
   const result = firebase
     .firestore()
@@ -24,6 +29,7 @@ const readDoc = (collection, id) => {
   return result;
 };
 
+// To delete a doc
 const deleteDoc = (collection, id) => {
   const result = firebase
     .firestore()
@@ -34,13 +40,13 @@ const deleteDoc = (collection, id) => {
   return result;
 };
 
+// To update a doc
 const updateDoc = (collection, id, updateData) => {
-  const result = firebase
+  return firebase
     .firestore()
     .collection(collection)
     .doc(id.toString())
     .update(updateData);
-  return result;
 };
 
 export { readAllDocs, updateDoc, createDoc, readDoc, deleteDoc };

@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 import genres from "../utils/genres";
 
+// This sidebar use the genres array to filter and select the category
 function SideBar({ category, active }) {
   return (
     <div className="py-3 px-4">

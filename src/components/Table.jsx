@@ -1,6 +1,7 @@
 import React from "react";
 
 function TableOfProducts({ cartItems }) {
+  // To get the total price of the list
   const getTotal = () => {
     let total = 0;
     cartItems.forEach((item) => {

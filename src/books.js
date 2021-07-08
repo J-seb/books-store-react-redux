@@ -1,3 +1,6 @@
+// Dummy data for local testing
+// NOTE: Once firebase connection is stablished, this dummy data is not used anymore.
+
 const initialBooks = [
   {
     _id: 1,

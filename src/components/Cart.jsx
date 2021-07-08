@@ -1,6 +1,7 @@
 import React from "react";
 import TableOfProducts from "./Table";
 
+// Cart component to render some elements of the right side of the screen, including table component
 function Cart({ cartItems, handleBuy }) {
   return (
     <div className="py-3 px-4">

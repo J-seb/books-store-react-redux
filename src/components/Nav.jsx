@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
+// This nav is for decorative purposes but it can be used for adding more features to the app
 function NavTop(props) {
   return (
     <>
