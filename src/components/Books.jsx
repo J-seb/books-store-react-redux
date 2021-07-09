@@ -15,7 +15,12 @@ function Books({ listOfBooks, modalControl, handleCart, category }) {
     return (
       <>
         <div className="row py-3 px-4">
-          <h5 className="text-dark">List of Books</h5>
+          <div className="d-flex justify-content-start align-items-center my-1">
+            <svg className="icon">
+              <use href="./icons/InlineSprite.svg#src-9"></use>
+            </svg>
+            <h5 className="text-dark">List of Books</h5>
+          </div>
           <hr />
           <div className="row gx-4 gy-4 m-0 p-0">
             {booksFiltered.map((book) => (
@@ -34,18 +39,18 @@ function Books({ listOfBooks, modalControl, handleCart, category }) {
                     <Card.Text className="">{`In Stock: ${book.stock}`}</Card.Text>
                     <div className="d-flex justify-content-evenly align-items-center">
                       <Button
-                        variant="success"
+                        className="btn-color"
                         onClick={(e) => handleCart(book, e)}
                         name="-"
                         disabled={!book.amountSelected}
                       >
                         -
                       </Button>
-                      <Button disabled variant="success">
+                      <Button disabled className="btn-color">
                         {book.amountSelected}
                       </Button>
                       <Button
-                        variant="success"
+                        className="btn-color"
                         onClick={(e) => handleCart(book, e)}
                         name="+"
                         disabled={book.amountSelected === book.stock}

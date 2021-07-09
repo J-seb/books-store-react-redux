@@ -4,6 +4,7 @@ import SideBar from "./components/Tab";
 import Books from "./components/Books";
 import Cart from "./components/Cart";
 import ModalDetails from "./components/Modal";
+import Footer from "./components/Footer";
 
 // Sweet-Alert to success purchase
 import Swal from "sweetalert2";
@@ -98,19 +99,20 @@ function App() {
       title: "Thanks for your purchase",
       text: "Operation was successful!",
       icon: "success",
+      confirmButtonColor: "#003450",
     });
   };
 
   return (
     <div>
-      <div className="row w-100 m-0">
+      <div className="row w-100 m-0 bg-nav-top">
         <NavTop />
       </div>
-      <div className="row w-100 m-0">
-        <div className="col-md-3">
-          <SideBar category={(e) => handleCategory(e)} active={category.name} />
+      <div className="row w-100 m-0 ">
+        <div className="col-md-3 bg-tab-left">
+          <SideBar category={(e) => handleCategory(e)} active={category} />
         </div>
-        <div className="col-md-6 border-end border-start">
+        <div className="col-md-6 border-end border-start bg-books">
           <Books
             listOfBooks={books}
             category={category}
@@ -118,7 +120,7 @@ function App() {
             handleCart={onHandleCart}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 bg-shopping-cart">
           <Cart cartItems={cartArray} handleBuy={onHandleBuy} />
         </div>
       </div>
@@ -127,6 +129,9 @@ function App() {
         show={showModal}
         book={actualBook}
       />
+      <div className="row w-100 m-0 bg-nav-top">
+        <Footer />
+      </div>
     </div>
   );
 }

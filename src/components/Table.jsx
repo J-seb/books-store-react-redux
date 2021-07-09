@@ -12,13 +12,21 @@ function TableOfProducts({ cartItems }) {
 
   return (
     <>
-      <table className="table table-hover table-sm">
+      <table className="table table-hover table-sm custom-table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Units</th>
-            <th scope="col">Price</th>
+            <th scope="col" className="small">
+              #
+            </th>
+            <th scope="col" className="small">
+              Name
+            </th>
+            <th scope="col" className="small">
+              Units
+            </th>
+            <th scope="col" className="small">
+              Price
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -35,10 +43,10 @@ function TableOfProducts({ cartItems }) {
         </tbody>
         <tfoot>
           <tr>
-            <th scope="row" className="small" colSpan="3">
+            <th scope="row" className="small border-tfoot" colSpan="3">
               Total
             </th>
-            <td className="small">{`$${getTotal()}`}</td>
+            <td className="small border-tfoot">{`$${getTotal()}`}</td>
           </tr>
         </tfoot>
       </table>

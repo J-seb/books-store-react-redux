@@ -7,19 +7,22 @@ function NavTop(props) {
   return (
     <>
       <Navbar
-        bg="success"
         variant="dark"
         className=" justify-content-between align-items-center"
       >
         <Navbar.Brand href="#home">
-          <i className="fa fa-book icons-nav" aria-hidden="true"></i>
-          Book Store
+          <svg className="icon">
+            <use href="./icons/InlineSprite.svg#src-10"></use>
+          </svg>
+          Books Store
         </Navbar.Brand>
 
         <Nav className="">
           <Nav.Link href="#home">
-            <i className="fa fa-user-o icons-nav" aria-hidden="true"></i>
-            User
+            <svg className="icon">
+              <use href="./icons/InlineSprite.svg#src-7"></use>
+            </svg>
+            Juan
           </Nav.Link>
         </Nav>
       </Navbar>

@@ -6,15 +6,26 @@ import genres from "../utils/genres";
 function SideBar({ category, active }) {
   return (
     <div className="py-3 px-4">
-      <h5 className="text-dark">Genres</h5>
+      <div className="d-flex mt-2">
+        <svg className="icon">
+          <use href="./icons/InlineSprite.svg#src-5"></use>
+        </svg>
+        <h5 className="text-dark">Genres</h5>
+      </div>
+
       <hr />
       <div className="mh-100">
-        <Nav className="flex-column" onClick={category} variant="pills">
+        <Nav
+          className="flex-column my-tab"
+          onClick={category}
+          variant="pills"
+          bg="dark"
+        >
           <Nav.Link
             name="all"
             eventKey="all"
             active={"all" === active}
-            className="text-success"
+            className="text-dark"
           >
             All
           </Nav.Link>
@@ -24,7 +35,7 @@ function SideBar({ category, active }) {
               eventKey={genre.id}
               key={genre.id}
               active={genre.id === active}
-              className="text-success"
+              className="text-dark"
             >
               {genre.name}
             </Nav.Link>

@@ -6,14 +6,130 @@
   font-family: "Roboto Slab", serif;
 }
 
+:root {
+  --blue-color: #003049;
+  --red-color: #d62828;
+  --orange-strong-color: #f77f00;
+  --orange-weak-color: #fcbf49;
+  --yellow-weak-color: #eae2b7;
+}
+
+/* Navs */
+
+.bg-nav-top,
+.bg-footer {
+  background-color: var(--blue-color);
+}
+
+/* Tabs */
+
+.my-tab .nav-link.active {
+  color: white !important;
+  background-color: var(--blue-color);
+}
+
+.bg-tab-left {
+  background-color: var(--orange-weak-color);
+}
+
+/* Icons */
+
+.icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 1rem;
+}
+
 .icons-nav {
   color: white;
   margin-right: 10px;
 }
 
-.nav-link.active {
-  color: white !important;
-  background-color: #198754 !important;
+/* Shopping Cart */
+
+.bg-shopping-cart {
+  background-color: var(--yellow-weak-color);
+}
+
+/* Table */
+
+.custom-table > tbody > tr > td,
+.custom-table > tbody > tr > th,
+.custom-table > tfoot > tr > td,
+.custom-table > tfoot > tr > th,
+.custom-table > thead > tr > td,
+.custom-table > thead > tr > th {
+  padding: 15px 5px 15px 5px;
+}
+
+tbody > tr > th,
+tbody > tr > td {
+  border-bottom: 0;
+}
+
+tfoot > tr > th,
+tfoot > tr > td {
+  border-top: 1px solid black;
+  border-bottom: 0;
+}
+
+/* Buttons */
+
+.btn-color,
+.btn-color:active,
+.btn-color:focus {
+  background-color: var(--blue-color);
+  border-color: var(--blue-color);
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-color:hover {
+  background-color: #003450;
+  border-color: #003450;
+}
+
+.btn-color:disabled {
+  background-color: #004164;
+  border-color: #004164;
+}
+
+/* Card Author */
+
+.custom-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.line-height {
+  line-height: 25px;
+}
+
+.card-author {
+  border: 1px solid rgb(207, 207, 207);
+}
+
+.float-icon {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -8px;
+  right: -23px;
+  transform: rotate(90deg);
+}
+
+.icon-medal {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+/* Cards Books */
+
+.shadow {
+  transition: transform 0.3s;
 }
 
 .fixed-height {
@@ -21,18 +137,19 @@
   cursor: pointer;
 }
 
-.shadow {
-  transition: transform 0.3s;
-}
-
 .shadow:hover {
   transform: scale(1.03);
 }
 
-.cart-icon {
-  margin-right: 20px;
-}
+/* Modal */
 
 .image-modal {
   max-width: 40%;
+}
+
+/* Footer */
+
+.icon-footer {
+  width: 100px;
+  height: 100px;
 }

@@ -14,7 +14,12 @@ function ModalDetails({ modalControl, show, book }) {
         animation={false}
       >
         <Modal.Header>
-          <Modal.Title className="px-3 py-1">Details of the Book</Modal.Title>
+          <div className="d-flex justify-content-start align-items-center my-1">
+            <svg className="icon">
+              <use href="./icons/InlineSprite.svg#src-6"></use>
+            </svg>
+            <Modal.Title className="px-3 py-1">Details of the Book</Modal.Title>
+          </div>
         </Modal.Header>
         <Modal.Body>
           <div className="row p-3">
@@ -36,11 +41,7 @@ function ModalDetails({ modalControl, show, book }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="success"
-            onClick={modalControl}
-            className="mx-3 my-1"
-          >
+          <Button onClick={modalControl} className="mx-3 my-1 btn-color">
             Close
           </Button>
         </Modal.Footer>
