@@ -31,6 +31,7 @@ function Books({ listOfBooks, modalControl, handleCart, category }) {
                     src={book.image}
                     className="p-0 w-auto d-block mx-auto fixed-height"
                     onClick={() => modalControl(book)}
+                    alt={book.publisher}
                   />
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
